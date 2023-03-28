@@ -1,0 +1,73 @@
+{% extends "workouts/profile_base.html" %}
+{% load static %}
+
+{% block title %}Update Fitness Details{% endblock title %}
+
+{% block content %}
+<div class="container-fluid workout-list">
+    <div class="select-program-header">
+        <h2 id="workouts-heading">Update Fitness Details</h2>
+        <a href="{% url 'customer-profile' %}"><small>Customer Profile</small></a> <small><i class="fa fa-angle-right fa-lg"></i></small> <a href="{% url 'fitness-details' %}"><small>Select Workout Programs</small></a>
+    </div>
+    <hr/>
+    <div class="container profile-container">
+        {% comment %} <div class="bg-overlay"></div> {% endcomment %}
+        <div class="row justify-content-center form-row">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Fitness Details</h2>
+                    </div>
+                    <div class="card-body">
+                    <form action="{% url 'fitness-details' %}" method="post">
+                        {% csrf_token %}
+                        {% include 'workouts/includes/form.html' %}
+
+                        <div class="control-buttons">
+                            <button type="button" class="btn btn-light" data-toggle="modal" href="{% url 'fitness-details' %}" data-target="#fitness-details-help" title="Fitness Details Help" data-tooltip><i class="fa fa-question-circle fa-lg"></i></button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% comment %} <!----------------- Fitness Details Modal ------------------ > {% endcomment %}
+    <div class="modal fade" id="fitness-details-help" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="form">
+            <div class="modal-content">
+                <form action="." method="post">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Fitness Details Help</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Body Type</h4>
+                        {% comment %} <h6>Ectomorph</h6> {% endcomment %}
+                        <img class="card-img-top" src="/media/ectomorph.webp" alt="Ectomorph">
+                        <p>Ectomorph is a body type that is described as tall and slim, with narrow shoulders and a low muscle mass percentage.
+                            In general, people with an ectomorph body type have a fast metabolism and tend to lose weight easily. However, they do have more difficulty building muscle.</p>
+                        <hr>
+                        {% comment %} <h6>Mesomorph</h6> {% endcomment %}
+                        <img class="card-img-top" src="/media/mesomorph.webp" alt="Ectomorph">
+                        <p>A mesomorph body type is characterized by a body that is usually leaner, with more muscles, toned arms and less body fat percentage.
+                            People with this body type also have a fast metabolism and can easily gain and maintain muscle mass.</p>
+                        <hr>
+                        {% comment %} <h6>Endomorph</h6> {% endcomment %}
+                        <img class="card-img-top" src="/media/endomorph.webp" alt="Ectomorph">
+                        <p>Endomorph describes a body type that is characterized by a shorter stature with a wide frame and a higher composition of body fat.
+                            Typically, people with this body type can easily put on muscle mass, but they also have a slower metabolism, higher body fat composition, and have a little more difficulty with weight loss.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

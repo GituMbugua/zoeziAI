@@ -1,0 +1,28 @@
+{% extends "workouts/profile_base.html" %}
+{% load static %}
+
+{% block title %}Workout Program Details{% endblock title %}
+
+{% block content %}
+<div class="container-fluid profile-container">
+    <div class="select-program-header">
+        <h2 id="workouts-heading">Workout Program Details</h2>
+        <hr/>
+    </div>
+    <a href="{% url 'workout-programs' %}"><small>Workout Programs</small></a> <small><i class="fa fa-angle-right fa-lg"></i></small> <a href="{% url 'workout-program-details' program.id %}"><small>Workout Program Details</small></a>
+    <div class="container all-workouts">
+        <div class="row workout-row">
+            <div class="col">
+                <h3 class="workout-title">{{program.title}}</h3>
+                <h5>{{program.description}}</h5>
+                <p class="program-description">{{program.program | linebreaks}}</p>
+                <p class="workout-target">Tags: <small>
+                    {% for tag in program.tags.all %}
+                        {{tag.name}},
+                    {% endfor %}
+                </small></p>
+            </div>
+        </div>
+    </div>    
+</div>
+{% endblock %}

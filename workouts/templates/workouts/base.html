@@ -1,0 +1,137 @@
+{% load static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <title>{% block title %} zoeziAI {% endblock %}</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> {% endcomment %}
+     {% bootstrap_css %}
+     
+     <link rel="stylesheet" href="{% static 'workouts/css/font-awesome.min.css' %}">
+     <link rel="stylesheet" href="{% static 'workouts/css/aos.css' %}">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'workouts/css/styles.css' %}">
+
+     {% block stylesheet %} {% endblock %}
+</head>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+{% comment %} {% include 'workouts/includes/messages.html' %} {% endcomment %}
+
+{% block body %}
+    <!-- MENU BAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+
+            <a class="navbar-brand" href="{% url 'home' %}">zoeziAI</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-lg-auto">
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}" class="nav-link smoothScroll">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'about' %}" class="nav-link smoothScroll">About Us</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'contact' %}" class="nav-link smoothScroll">Contact</a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'categories' %}" class="nav-link smoothScroll">Categories</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          {{ user.username }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+                            {% if user.is_staff %}
+                                <a class="dropdown-item" href="{% url 'trainer-profile' %}">Staff Tools</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{% url 'customer-profile' %}">My account</a>
+                            {% endif %}
+
+                          {% comment %} <a class="dropdown-item" href="#">Change password</a> {% endcomment %}
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                        </div>
+                      </li>
+                </ul>
+                {% else %}
+                    {% comment %} <form class="form-inline ml-auto"> {% endcomment %}
+                        <li class="nav-item">
+                            <a href="{% url 'login' %}" class="custom-btn">Log in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'register' %}" class="custom-btn bordered ml-2">Sign up</a>
+                        </li>
+                    {% comment %} </form> {% endcomment %}
+                {% endif %}
+            </div>
+
+        </div>
+    </nav>
+
+   {% block content %}
+
+   {% endblock content%}
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+             <div class="row">
+
+                  <div class="mx-auto col-lg-4 col-md-5">
+                      <p class="copyright-text">Copyright &copy; 2022 zoeziAI                        
+                  </div>
+
+                  <div class="d-flex justify-content-center mx-auto col-lg-4 col-md-7 col-12">
+                      <p class="mr-4">
+                          <i class="fa fa-envelope-o mr-1"></i>
+                          <a href="#">hello@zoeziai.com</a>
+                      </p>
+
+                      <p><i class="fa fa-phone mr-1"></i> +254 123456789</p>
+                      {% comment %} <p><a href="#" class="fa fa-facebook"></a></p>
+                      <p><a href="#" class="fa fa-twitter"></a></p>
+                      <p><a href="#" class="fa fa-instagram"></a></p> {% endcomment %}
+                      
+                    </div>
+                <div class="col-lg-4 mx-auto">
+                    <ul class="social-icon justify-content-center ml-lg-12">
+                        <li><a href="https://www.facebook.com/" class="fa fa-facebook mr-3"></a></li>
+                        <li><a href="https://twitter.com/home" class="fa fa-twitter mr-3"></a></li>
+                        <li><a href="https://www.instagram.com/" class="fa fa-instagram mr-3"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+   </footer>
+    <!-- SCRIPTS -->
+    {% bootstrap_javascript jquery='full' %}
+    <script src="{% static 'workouts/js/jquery.min.js' %}"></script>
+    <script src="{% static 'workouts/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'workouts/js/popper.min.js' %}"></script>
+    <script src="{% static 'workouts/js/aos.js' %}"></script>
+    <script src="{% static 'workouts/js/smoothscroll.js' %}"></script>
+    <script src="{% static 'workouts/js/custom.js' %}"></script>
+    {% endblock body %}
+</body>
+</html>
+

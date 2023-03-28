@@ -1,0 +1,39 @@
+{% extends 'workouts/base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'workouts/css/accounts.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid auth-container" id="login-form">
+    <div class="bg-overlay"></div>
+    {% comment %} <h1 class="text-center logo my-4">
+      <a href="{% url 'home' %}">zoeziAI</a>
+    </h1> {% endcomment %}
+    <div class="row justify-content-center form-row">
+      <div class="col-lg-4 col-md-6 col-sm-8">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Log In</h2>
+          </div>
+          <div class="card-body">
+            <form method="post" novalidate>
+              {% csrf_token %}
+              {% include 'workouts/includes/form.html' %}
+              <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            </form>
+          </div>
+          <div class="card-footer text-muted text-center">
+            New to zoeziAI? <a href="{% url 'register' %}">Sign up</a>
+          </div>
+        </div>
+        <div class="text-center py-2">
+          <small>
+            <a href="#" class="text-muted">Forgot your password?</a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

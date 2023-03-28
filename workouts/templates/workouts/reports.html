@@ -1,0 +1,159 @@
+{% extends "workouts/profile_base.html" %}
+{% load static %}
+
+{% block title %}Reports{% endblock title %}
+
+{% block content %}
+<div class="container-fluid profile-container">
+    <h3>Reports</h3>
+    <hr/>
+    <div class="container">
+        <div class="row ">
+            <div class="col-xl-3 col-lg-6">
+                <div class="card reports-card l-bg-cherry">
+                    <div class="card-statistic-3 p-4">
+                        <div class="card-icon card-icon-large"><i class="fa fa-shopping-cart"></i></div>
+                        <div class="mb-4">
+                            <h5 class="card-title mb-0">Trainers</h5>
+                        </div>
+                        <div class="row align-items-center mb-2 d-flex">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0">
+                                    {{trainers_count}}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+                <div class="card reports-card l-bg-blue-dark">
+                    <div class="card-statistic-3 p-4">
+                        <div class="card-icon card-icon-large"><i class="fa fa-users"></i></div>
+                        <div class="mb-4">
+                            <h5 class="card-title mb-0">Customers</h5>
+                        </div>
+                        <div class="row align-items-center mb-2 d-flex">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0">
+                                    {{customers_count}}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+                <div class="card reports-card l-bg-green-dark">
+                    <div class="card-statistic-3 p-4">
+                        <div class="card-icon card-icon-large"><i class="fas fa-ticket-alt"></i></div>
+                        <div class="mb-4">
+                            <h5 class="card-title mb-0">Workouts</h5>
+                        </div>
+                        <div class="row align-items-center mb-2 d-flex">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0">
+                                    {{workouts_count}}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+                <div class="card reports-card l-bg-orange-dark">
+                    <div class="card-statistic-3 p-4">
+                        <div class="card-icon card-icon-large"><i class="fa fa-dollar-sign"></i></div>
+                        <div class="mb-4">
+                            <h5 class="card-title mb-0">Workout Programs</h5>
+                        </div>
+                        <div class="row align-items-center mb-2 d-flex">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0">
+                                    {{programs_count}}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="container reports-list">
+        <div class="card">
+            <div class="card-header">
+                <h4>Trainers</h4>
+            </div>
+            <div class="card-body">
+                {% if trainers.count != 0 %}
+                    <table class="col">
+                        <tr>
+                            <th><p>First Name</p></th>
+                            <th><p>Last Name</p></th>
+                            <th><p>Email</p></th>
+                            <th><p>Gender</p></th>
+                            <th><p>Date of Birth</p></th>
+                            <th><p>Location</p></th>
+                            <th><p>Date Joined</p></th>
+                            <th><p>Last Login</p></th>
+                        </tr>
+                        {% for trainer in trainers %}
+                            <tr>
+                                <td><small>{{trainer.first_name}}</small></td>
+                                <td><small>{{trainer.last_name}}</small></td>
+                                <td><small>{{trainer.email}}</small></td>
+                                <td><small>{{trainer.trainer_profile.gender}}</small></td>
+                                <td><small>{{trainer.trainer_profile.date_of_birth}}</small></td>
+                                <td><small>{{trainer.trainer_profile.location}}</small></td>
+                                <td><small>{{trainer.date_joined}}</small></td>
+                                <td><small>{{trainer.last_login}}</small></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>No trainers to display.</p>
+                {% endif %}
+            </div>
+        </div>
+        <hr/>
+        <div class="card">
+            <div class="card-header">
+                <h4>Customers</h4>
+            </div>
+            <div class="card-body">
+                {% if customers.count != 0 %}
+                    <table class="col">
+                        <tr>
+                            <th><p>First Name</p></th>
+                            <th><p>Last Name</p></th>
+                            <th><p>Email</p></th>
+                            <th><p>Gender</p></th>
+                            <th><p>Date of Birth</p></th>
+                            <th><p>Goal</p></th>
+                            <th><p>Date Joined</p></th>
+                            <th><p>Last Login</p></th>
+                        </tr>
+                        {% for customer in customers %}
+                            <tr>
+                                <td><small>{{customer.first_name}}</small></td>
+                                <td><small>{{customer.last_name}}</small></td>
+                                <td><small>{{customer.email}}</small></td>
+                                <td><small>{{customer.customer_profile.gender}}</small></td>
+                                <td><small>{{customer.customer_profile.date_of_birth}}</small></td>
+                                <td><small>{{customer.customer_profile.goal}}</small></td>
+                                <td><small>{{customer.date_joined}}</small></td>
+                                <td><small>{{customer.last_login}}</small></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>No customers to display.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}

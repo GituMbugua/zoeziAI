@@ -1,0 +1,31 @@
+{% extends 'workouts/base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'workouts/css/accounts.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid auth-container">
+    <div class="bg-overlay"></div>
+    <div class="row justify-content-center form-row">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Register</h2>
+            </div>
+            <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {% include 'workouts/includes/form.html' %}
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </form>
+            </div>
+            <div class="card-footer text-muted text-center">
+            Already have an account? <a href="{% url 'login' %}">Log in</a>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

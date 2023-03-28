@@ -1,0 +1,53 @@
+{% extends "workouts/profile_base.html" %}
+{% load static %}
+
+{% block title %}Workouts{% endblock title %}
+
+{% block content %}
+<div class="container-fluid profile-container">
+    <h2 id="workouts-heading">Workouts</h2>
+    <hr/>
+    {% if user.is_staff %}
+        <button class="btn btn-primary inline btn-add-workout" data-toggle="modal" href="{% url 'workouts' %}" data-target="#add-workout" title="Add Workout">Add New</button>
+    {% endif %}
+    <div class="container all-workouts">
+        {% for workout in workouts %}
+        <div class="row workout-row">
+            <div class="col-4 workout-image">
+                <img src="/media/{{workout.image}}" alt="Workout Image">
+            </div>
+            <div class="col-8">
+                <h2 class="workout-title">{{workout.title}}</h2>
+                <p class="pushup-description">{{workout.description | linebreaks}}</p>
+                <p class="workout-target">Target: {{workout.target}}</p>
+            </div>
+        </div>
+        <hr/>
+        {% endfor %}
+    </div>
+    
+    {% comment %} <!----------------- Modal ------------------ > {% endcomment %}
+    <div class="modal fade" id="add-workout" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="form">
+            <div class="modal-content">
+                <form action="{% url 'workouts' %}" method="post" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Workout</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {% include 'workouts/includes/form.html' %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

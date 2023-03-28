@@ -1,0 +1,91 @@
+{% extends "workouts/profile_base.html" %}
+{% load static %}
+
+{% block title %}Workout Programs{% endblock title %}
+
+{% block content %}
+<div class="container-fluid profile-container">
+    <h2 id="workouts-heading">Workout Programs</h2>
+    <hr/>
+    {% if user.is_staff or user.is_trainer %}
+        <button class="btn btn-primary inline btn-add-workout" data-toggle="modal" href="{% url 'workout-programs' %}" data-target="#add-workout-program" title="Add Workout">Add New</button>
+    {% endif %}
+    <div class="container all-workouts">
+        {% if user.is_staff or user.is_trainer %}
+            {% for program in programs %}
+                <div class="row workout-row">
+                    <div class="col">
+                        <h3 class="workout-title">{{program.title}}</h3>
+                        <h5>{{program.description}}</h5>
+                        {% comment %} <p class="pushup-description">{{workout.description | linebreaks}}</p> {% endcomment %}
+                        <p class="workout-target">Tags: <small>
+                            {% for tag in program.tags.all %}
+                                {{tag.name}},
+                            {% endfor %}
+                        </small></p>
+                    </div>
+                </div>
+                <div class="control-buttons">
+                    <button class="btn btn-primary" data-toggle="modal" href="{% url 'workout-programs' %}" data-target="#workout-program-details" title="Workout Program Details">See more</button>
+                    {% if user.is_staff or user.is_trainer %}
+                        <button class="btn btn-warning"><i class="fa fa-pencil fa-lg"></i></button>
+                    {% else %}
+                        <a href="{% url 'select-workout-program' program.id %}"><button class="btn btn-success">Select</button></a>
+                    {% endif %}
+                </div>
+                <hr/>
+            {% endfor %}
+        {% else %}
+            {% for program in selected_programs %}
+                <div class="row workout-row">
+                    <div class="col">
+                        <h3 class="workout-title">{{program.title}}</h3>
+                        <h5>{{program.description}}</h5>
+                        {% comment %} <p class="pushup-description">{{workout.description | linebreaks}}</p> {% endcomment %}
+                        <p class="workout-target">Tags: <small>
+                            {% for tag in program.tags.all %}
+                                {{tag.name}},
+                            {% endfor %}
+                        </small></p>
+                    </div>
+                </div>
+                <div class="control-buttons">
+                    <a  href="{% url 'workout-program-details' program.id %}"><button class="btn btn-primary">See more</button>
+                    {% if user.is_staff or user.is_trainer %}
+                        <button class="btn btn-warning"><i class="fa fa-pencil fa-lg"></i></button>
+                    {% else %}
+                        <a href="{% url 'select-workout-program' program.id %}"><button class="btn btn-success">Select</button></a>
+                    {% endif %}
+                </div>
+                <hr/>
+            {% endfor %}
+        {% endif %}
+    </div>
+    
+    {% comment %} <!----------------- Add New Modal ------------------ > {% endcomment %}
+    <div class="modal add-workout-modal fade" id="add-workout-program" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="form">
+            <div class="modal-content">
+                <form action="." method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Workout Program</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {% include 'workouts/includes/form.html' %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+{% endblock %}

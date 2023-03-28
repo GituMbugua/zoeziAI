@@ -1,0 +1,36 @@
+/*---------------------------------------
+     FORMS              
+  -----------------------------------------*/
+.form-row {
+    padding: 10% 0 5% 0;
+}
+
+
+/*---------------------------------------
+     LOGIN & REGISTER              
+  -----------------------------------------*/
+
+  .auth-container {
+    background-image: url('../images/ropes.jpg');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-position-y: 5%;
+    vertical-align: middle;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* BG OVERLAY */
+
+  .bg-overlay {
+    opacity: 0.6;
+  }
+
+  .logo a {
+      color: var(--white-color);
+  }
+
+  .logo a:hover {
+      color: var(--primary-color);
+  }
